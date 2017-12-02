@@ -2,6 +2,20 @@ from flask import *
 
 app = Flask(__name__)
 
+months = { 1:"January",
+           2:"February",
+           3:"March",
+           4:"April",
+           5:"May",
+           6:"June",
+           7:"July",
+           8:"August",
+           9:"September",
+           10:"October",
+           11:"November",
+           12:"December"}
+
+
 tasks = [
     {
         'id': 1,
@@ -18,35 +32,44 @@ tasks = [
 ]
 
 
-@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
-def DoStuff(task_id):
-    task_list = [task for task in tasks if task['id'] == task_id]
+@app.route('/todo/api/v1.0/tasks/<int:task_id>/<int:day_id>', methods=['POST'])
+def DoStuff(task_id, day_id):
+    task_list = ("a", "b")#[task for task in tasks if task['id'] == task_id]
     
     # Probably validation
     if len(task_list) == 0:
         abort(404)
-    """if not request.json:
+    if not request.json:
         abort(400)
-    if 'title' in request.json and type(request.json['title']) != unicode:
-        abort(400)
-    if 'description' in request.json and type(request.json['description']) is not unicode:
+    #if 'title' in request.json and type(request.json['title']) != unicode:
+        #abort(400)
+    """if 'description' in request.json and type(request.json['description']) is not unicode:
         abort(400)
     if 'done' in request.json and type(request.json['done']) is not bool:
         abort(400)"""
 
     dataToSend = ''
 
+    title = request.json['title']
+
+    dataToSend = GetData(task_id, day_id)
+
     # The task exists
     if task_id == 1:
-        dataToSend = function1()
+        pass
+        #dataToSend = function1(title)
         
     elif task_id == 2:
-        dataToSend = function2()
+        pass
+        #dataToSend = function2()
         
     return dataToSend
 
-def function1():
-    return "Buy Groceries"
+def GetData(month_id, day_id):
+    return "month: {}   day: {}".format(months[month_id], str(day_id))
+
+def function1(title):
+    return "Buy Groceries" + title
 
 def function2():
     return "Learn Python"
