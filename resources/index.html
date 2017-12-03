@@ -1,20 +1,98 @@
 <HTML>
     <HEAD>
         <TITLE>TTU Local Hack!!!!</TITLE>
+		
+	<!-- <style> -->
+	  <!-- body {background-color: powderblue;} // styles applied to body tag -->
+	  <!-- <H1> {color: blue;} // styles applied to h1 tag -->
+	  <!-- P {color: red;} // styles applied to p tag -->
+	<!-- </style> -->
+	
     </HEAD>
     
-    <BODY BGCOLOR="FFFF0F">
+    <BODY BGCOLOR="powderblue">
         <!--<CENTER><IMG SRC="clouds.jpg" ALIGN="BOTTOM"> </CENTER>-->
         <HR>
-        <a href="http://somegreatsite.com">Link Name</a>
-        is a link to another nifty site
-        <H1>This is a Header</H1>
-        <H2>This is a Medium Header</H2>
-        Send me mail at <a href="mailto:support@yourcompany.com">
-        support@yourcompany.com</a>.
-        <P> This is a new paragraph!
-        <P> <B>This is a new paragraph!</B>
-        <BR> <B><I>This is a new sentence without a paragraph break, in bold italics.</I></B>
+        
+        <H1 style="text-align:center;">Welcome to the 2017 TTU Local Hack Project </H1>
+        <H2 style="text-align:center;">This is about Weather Prediction for Cookeville, TN</H2>
+		<!-- <form onsubmit="return false"> -->
+		
+			<!-- <P> Select a date! </P> -->
+			<!-- <input id="date" type="date"> -->
+			<!-- <P> Activate! </P> -->
+			<!-- <button type="button" onclick="write(6)"> Click Me!</button> -->
+		<!-- </form>  -->
+		
         <HR>
+		
+		<form name="o" id="o" onsubmit="return false">
+			<P style="text-align:center;"> Select a date! </P>
+			<input id="date" type="date" style="display: block; margin-right:auto; margin-left:auto;">
+			<P style="text-align:center;"> Activate! </P>
+			<button name="button" type="submit" id="button" onclick="changeValue();" style="display: block; margin-right:auto; margin-left:auto;">Click for Analysis!</button>
+			<!-- <button type="submit" onclick="UserAction()">Search</button> -->
+		</form>
+		
+		<P class="deemedYes" style="text-align:center;">  <B> There should be rain on this day  </B>   </P>
+		<img class="deemedYes" src="rain.jpg" alt="Sorry, No Image Availble"style="width:30%; display: block; margin-right:auto; margin-left:auto;">
+		
+		<P class="deemedNo" style="text-align:center;">	<B>There should NOT be rain on this day</B>	</P>
+		<img class="deemedNo" src="sunny.gif" alt="Sorry, No Image Availble"style="width:30%; display: block; margin-right:auto; margin-left:auto;">
+		
+		<img class="orig" src="cookeville.jpg" alt="Sorry, No Image Availble" style="width:80%; display: block; margin-right:auto; margin-left:auto;">
+		
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>	
+	<script type="text/javascript">
+		$(".deemedNo").hide();
+		$(".deemedYes").hide();
+		
+		function changeValue()
+		{
+			$(".orig").hide();
+			<!-- Send this date YYYY/MM/DD -->
+			var decDate = document.getElementById("date").value;
+			<!-- var uurrll = "http://10.105.202.143:5000/todo/api/v1.0/tasks/"; -->
+			<!-- var revis = uurrll.concat(decDate); -->
+			<!-- document.write("http://10.105.202.143:5000/todo/api/v1.0/tasks/" + decDate); -->
+			<!-- alert("yowlla"); -->
+			var decernment = UserAction(decDate);
+			<!-- document.write("http://10.105.202.143:5000/todo/api/v1.0/tasks/" + decDate.replace("-","/").replace("-","/")); -->
+			<!-- document.write(decernment); -->
+			<!-- alert("yowlla"); -->
+			if(document.getElementById("date").value == ""){
+				$(".deemedYes").hide();
+				$(".deemedNo").hide();
+				$(".orig").show();
+			}
+			else if(decernment == "1"){
+				$(".deemedYes").hide();
+				$(".deemedNo").show();
+			}
+			else if(decernment == "0"){
+				$(".deemedNo").hide();
+				$(".deemedYes").show();
+			}
+			else{
+				$(".deemedYes").hide();
+				$(".deemedNo").hide();
+				$(".orig").show();}
+		}
+		
+		function UserAction(decDate) {
+			var xhttp = new XMLHttpRequest();
+			xhttp.open("POST", "http://10.105.202.143:5000/todo/api/v1.0/tasks/" + decDate.replace("-","/").replace("-","/"), false);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			<!-- xhttp.responseType = "json"; -->
+			xhttp.send("{\"title\":\"Buy groceries\"}");
+			<!-- var response = JSON.parse(xhttp.responseText); -->
+			var response = xhttp.responseText;
+			<!-- alert(response); -->
+			<!-- document.write(response); -->
+			return response;
+		}
+	</script>
+		
     </BODY>
 </HTML> 
