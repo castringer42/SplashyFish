@@ -54,20 +54,29 @@ def DoStuff(year_id, month_id, day_id):
     if 'done' in request.json and type(request.json['done']) is not bool:
         abort(400)"""
 
-    dataToSend = ''
+    dataToSend = 0
 
     sys.stderr.write("{}-{}-{}\n".format(year_id, month_id, day_id))
 
     title = request.json['title']
 
-    dataToSend = GetData(month = month_id, day=day_id, year=year_id)
+
+    for i in range(-3, 4):
+        tempData = GetData(month = month_id, day=day_id+i, year=year_id)
+        if tempData == '':
+            tempData = '1'
+        dataToSend += float(tempData)
+
+    dataToSend /= 7;
         
-    sys.stderr.write("-->{}\n".format(dataToSend))
-    return dataToSend
+    sys.stderr.write("->{}\n".format(dataToSend))
+    
+    sys.stderr.write("-->{}\n".format(int(round(dataToSend))))
+    return str(int(round(dataToSend)))
 
 def GetData(month, day, year = "1979"):
     avg_precip = wg.GetData("{}-{}-{}".format(year, month, day))
-    if avg_precip > .5:
+    if avg_precip > .25:
         #return '{"rainfall":"1"}'
         return '1'
     else:
