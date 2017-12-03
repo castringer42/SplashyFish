@@ -1,4 +1,23 @@
 # -*- coding: utf-8 -*-
+# MLH Local Hack Day 2017
+# Tennessee Technological University group
+# 2 December, 2017
+# 
+# Paula B, Seth D, Chris S, Caroline E
+# Other team members: Maria, Ethan L, 
+#                     John B, Lane S
+#
+# Description: This program takes a date in the form YYYY-mm-dd and attempts to
+#   retrieve historical rainfall data in Nashville for that day.
+# 
+# To use: make a WeatherGrabber and request data with GetData
+#   ex: wg = WeatherGrabber()
+#       averageRainfall_inches = wg.GetData("1979-02-12")
+#
+# Future Work: Multiple cities, date ranges, cross-reference different sites to
+#   hopefully reduce days with no data.  Maybe remove from the class and just 
+#   have the functions.
+
 import datetime
 import time
 import sys
