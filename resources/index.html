@@ -2,20 +2,15 @@
     <HEAD>
         <TITLE>TTU Local Hack!!!!</TITLE>
 		
-	<!-- <style> -->
-	  <!-- body {background-color: powderblue;} // styles applied to body tag -->
-	  <!-- <H1> {color: blue;} // styles applied to h1 tag -->
-	  <!-- P {color: red;} // styles applied to p tag -->
-	<!-- </style> -->
 	
     </HEAD>
     
-    <BODY BGCOLOR="powderblue">
+    <BODY BGCOLOR="#4F2984">
         <!--<CENTER><IMG SRC="clouds.jpg" ALIGN="BOTTOM"> </CENTER>-->
         <HR>
         
-        <H1 style="text-align:center;">Welcome to the 2017 TTU Local Hack Project </H1>
-        <H2 style="text-align:center;">This is about Weather Prediction for Cookeville, TN</H2>
+        <H1 style="text-align:center; color:#FFDD00;">Welcome to the 2017 TTU Local Hack Project </H1>
+        <H2 style="text-align:center; color:#FFDD00;">This is about Weather Prediction for Cookeville, TN</H2>
 		<!-- <form onsubmit="return false"> -->
 		
 			<!-- <P> Select a date! </P> -->
@@ -27,17 +22,17 @@
         <HR>
 		
 		<form name="o" id="o" onsubmit="return false">
-			<P style="text-align:center;"> Select a date! </P>
+			<P style="text-align:center;color:#FFDD00;"> Select a date! </P>
 			<input id="date" type="date" style="display: block; margin-right:auto; margin-left:auto;">
-			<P style="text-align:center;"> Activate! </P>
+			<P style="text-align:center;color:#FFDD00;"> Activate! </P>
 			<button name="button" type="submit" id="button" onclick="changeValue();" style="display: block; margin-right:auto; margin-left:auto;">Click for Analysis!</button>
 			<!-- <button type="submit" onclick="UserAction()">Search</button> -->
 		</form>
 		
-		<P class="deemedYes" style="text-align:center;">  <B> There should be rain on this day  </B>   </P>
+		<P class="deemedYes" style="text-align:center;color:#FFDD00;">  <B> There should be rain on this day  </B>   </P>
 		<img class="deemedYes" src="rain.jpg" alt="Sorry, No Image Availble"style="width:30%; display: block; margin-right:auto; margin-left:auto;">
 		
-		<P class="deemedNo" style="text-align:center;">	<B>There should NOT be rain on this day</B>	</P>
+		<P class="deemedNo" style="text-align:center;color:#FFDD00;">	<B>There should NOT be rain on this day</B>	</P>
 		<img class="deemedNo" src="sunny.gif" alt="Sorry, No Image Availble"style="width:30%; display: block; margin-right:auto; margin-left:auto;">
 		
 		<img class="orig" src="cookeville.jpg" alt="Sorry, No Image Availble" style="width:80%; display: block; margin-right:auto; margin-left:auto;">
@@ -66,11 +61,11 @@
 				$(".deemedNo").hide();
 				$(".orig").show();
 			}
-			else if(decernment == "1"){
+			else if(decernment == "0"){
 				$(".deemedYes").hide();
 				$(".deemedNo").show();
 			}
-			else if(decernment == "0"){
+			else if(decernment == "1"){
 				$(".deemedNo").hide();
 				$(".deemedYes").show();
 			}
