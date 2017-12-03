@@ -1,5 +1,11 @@
 from flask import *
 
+from weathergrabber import WeatherGrabber
+
+import sys
+
+wg = WeatherGrabber()
+
 app = Flask(__name__)
 
 months = { 1:"January",
@@ -32,8 +38,8 @@ tasks = [
 ]
 
 
-@app.route('/todo/api/v1.0/tasks/<int:task_id>/<int:day_id>', methods=['POST'])
-def DoStuff(task_id, day_id):
+@app.route('/todo/api/v1.0/tasks/<int:year_id>/<int:month_id>/<int:day_id>', methods=['POST', 'GET'])
+def DoStuff(year_id, month_id, day_id):
     task_list = ("a", "b")#[task for task in tasks if task['id'] == task_id]
     
     # Probably validation
@@ -50,31 +56,45 @@ def DoStuff(task_id, day_id):
 
     dataToSend = ''
 
+    sys.stderr.write("{}-{}-{}\n".format(year_id, month_id, day_id))
+
     title = request.json['title']
 
-    dataToSend = GetData(task_id, day_id)
-
-    # The task exists
-    if task_id == 1:
-        pass
-        #dataToSend = function1(title)
+    dataToSend = GetData(month = month_id, day=day_id, year=year_id)
         
-    elif task_id == 2:
-        pass
-        #dataToSend = function2()
-        
+    sys.stderr.write("-->{}\n".format(dataToSend))
     return dataToSend
 
-def GetData(month_id, day_id):
-    return "month: {}   day: {}".format(months[month_id], str(day_id))
+def GetData(month, day, year = "1979"):
+    avg_precip = wg.GetData("{}-{}-{}".format(year, month, day))
+    if avg_precip > .5:
+        #return '{"rainfall":"1"}'
+        return '1'
+    else:
+        #return '{"rainfall":"0"}'
+        return '0'
+    
+    #return "month: {}   day: {}".format(months[month_id], str(day_id))
 
 def function1(title):
     return "Buy Groceries" + title
 
 def function2():
     return "Learn Python"
-
-
+"""
+@app.route('/todo/api/v1.0/tasks/<int:year_id>/<int:month_id>/<int:day_id>', methods=['OPTIONS'])
+def AllowPost(year_id, month_id, day_id):
+    return make_response(jsonify({'Allow' : 'POST' }, 200, \
+    { 'Access-Control-Allow-Origin': '*', \
+      'Access-Control-Allow-Methods' : 'PUT,GET,POST' }))
+"""
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    return response    
+    
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
@@ -88,4 +108,4 @@ def index():
     return "Hello, World"
     
 if "__main__" == __name__:
-    app.run(debug=True)
+    app.run(host="10.105.202.143", debug=True)
